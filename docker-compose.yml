@@ -1,0 +1,25 @@
+# docker version
+version: '3'
+
+# docker services
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB= api_system_docker
+      - POSTGRES_USER= postgres
+      - POSTGRES_PASSWORD= postgres
+    restart: always
+    ports:
+      - 5432: 5432
+    
+  web:
+    image: rest_api_system_web
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
