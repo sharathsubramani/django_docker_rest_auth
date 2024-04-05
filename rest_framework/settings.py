@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,11 +77,11 @@ WSGI_APPLICATION = 'rest_framework.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'api_system_docker',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432
+        'NAME': environ.get("POSTGRES_DB"),
+        'USER': environ.get("POSTGRES_USER"),
+        'PASSWORD': environ.get("POSTGRES_PASSWORD"),
+        'HOST': environ.get("POSTGRES_HOST"),
+        'PORT': environ.get("POSTGRES_PORT")
     }
 }
 
