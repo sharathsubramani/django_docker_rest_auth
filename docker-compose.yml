@@ -6,10 +6,11 @@ services:
   db:
     image: postgres
     environment:
-      - POSTGRES_DB=api_system_docker
+      - POSTGRES_DB=django
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_PORT=5432
+      - POSTGRES_HOST=localhost
     restart: always
     # ports:
     #   - '5432': '5432'
@@ -26,3 +27,19 @@ services:
       - .env
     depends_on:
       - db
+    
+  pgadmin4:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=sharathsubramani02@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      # - PGADMIN_LISTEN_PORT=5050
+      # - PGADMIN_CONFIG_WTF_CSRF_CHECK_DEFAULT:'False'
+      # - PGADMIN_CONFIG_WTF_CSRF_ENABLED:'False'
+    ports:
+      - 5050:80
+    depends_on:
+      - db
+
